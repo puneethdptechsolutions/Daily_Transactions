@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daily Transactions — Personal Finance Workspace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/landing-style.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <!-- Top Bar -->
+    <header class="topbar">
+      <a href="#top" class="brand-lockup">
+        <span class="brand-badge">DT</span>
+        <span class="brand-meta">
+          <span class="brand-title-row">
+            <strong>Daily Transactions</strong>
+            <span class="badge-pill">WORKSPACE</span>
+          </span>
+          <small>Personal finance &amp; expense ledger</small>
+        </span>
+      </a>
+
+      <nav class="topbar-actions" aria-label="Primary actions">
+        <button type="button" id="openSignUpBtn" class="btn-ghost" data-open-auth="signUpView">
+          Create Account
+        </button>
+        <button type="button" id="openSignInBtn" class="btn-solid-teal" data-open-auth="signInView">
+          Login
+        </button>
+      </nav>
+    </header>
+
+    <!-- Main Content Body -->
+    <main id="top" class="landing-main">
+      <!-- Placeholder Landing Showcase -->
+      <section id="landingShowcase" class="hero-section">
+        <span class="pill-mint">PERSONAL FINANCE &amp; DAILY LEDGER</span>
+
+        <h1 class="hero-title">
+          Manage your daily transactions, categories &amp; accounts in one clear workspace.
+        </h1>
+
+        <p class="hero-subtitle">
+          A focused space to log everyday expenses, organize payment modes and accounts,
+          and review monthly activity inside your own private account.
+        </p>
+
+
+        <!-- 2x2 Placeholder Feature Cards -->
+        <div class="cards-grid">
+          <article class="info-card">
+            <div class="card-top">
+              <span class="card-icon teal">₹</span>
+              <span class="status-tag open">Core</span>
+            </div>
+            <h3>Daily Transactions</h3>
+            <p>Record date, description, cost, category, mode, account, and remarks.</p>
+          </article>
+
+          <article class="info-card">
+            <div class="card-top">
+              <span class="card-icon gold">U</span>
+              <span class="status-tag">Isolated</span>
+            </div>
+            <h3>Unique User Space</h3>
+            <p>Every account has its own private ledger scoped strictly to that user.</p>
+          </article>
+
+          <article class="info-card">
+            <div class="card-top">
+              <span class="card-icon blue">M</span>
+              <span class="status-tag">Monthly</span>
+            </div>
+            <h3>Month-by-Month View</h3>
+            <p>Filter entries by month and watch expense totals update automatically.</p>
+          </article>
+
+          <article class="info-card">
+            <div class="card-top">
+              <span class="card-icon slate">C</span>
+              <span class="status-tag">Full CRUD</span>
+            </div>
+            <h3>Add, Edit &amp; Remove</h3>
+            <p>Update entries anytime or delete mistakes with clean, fast controls.</p>
+          </article>
+        </div>
+
+        <!-- Placeholder Trust Strip -->
+        <div class="trust-strip">
+          <span>🔒 Isolated Per-User Data</span>
+          <span>✉️ Email Verification Required</span>
+          <span>📱 Mobile &amp; Desktop Ready</span>
+        </div>
+      </section>
+
+      <!-- Auth Modal / Card (Sign In, Create Account, Forgot Password) -->
+      <section id="authModalBackdrop" class="auth-modal-backdrop hidden" aria-modal="true" role="dialog">
+        <div class="auth-card">
+          <button type="button" id="closeAuthBtn" class="close-btn" aria-label="Close authentication panel">
+            ✕
+          </button>
+
+          <!-- Alert Banner -->
+          <div id="authAlert" class="alert hidden" role="alert">
+            <span id="authAlertText"></span>
+            <button type="button" id="resendVerifyBtn" class="resend-btn hidden">
+              Resend verification link
+            </button>
+          </div>
+
+          <!-- VIEW 1: SIGN IN -->
+          <div id="signInView" class="auth-view">
+            <div class="view-header">
+              <span class="view-kicker">WELCOME BACK</span>
+              <h2>Sign in to your ledger</h2>
+              <p>Enter your verified email and password to continue.</p>
+            </div>
+
+            <form id="signInForm" novalidate>
+              <div class="form-group">
+                <label for="loginEmail">Email</label>
+                <input
+                  type="email"
+                  id="loginEmail"
+                  name="loginEmail"
+                  placeholder="you@example.com"
+                  autocomplete="email"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <div class="label-row">
+                  <label for="loginPassword">Password</label>
+                  <button type="button" class="text-link" data-switch="forgotPasswordView">
+                    Forgot password?
+                  </button>
+                </div>
+                <input
+                  type="password"
+                  id="loginPassword"
+                  name="loginPassword"
+                  placeholder="Enter your password"
+                  autocomplete="current-password"
+                  required
+                />
+              </div>
+
+              <button type="submit" id="signInBtn" class="btn-solid-teal full-width">
+                Sign In
+              </button>
+            </form>
+
+            <p class="switch-prompt">
+              Don’t have an account?
+              <button type="button" class="text-link strong" data-switch="signUpView">
+                Create account
+              </button>
+            </p>
+          </div>
+
+          <!-- VIEW 2: CREATE ACCOUNT -->
+          <div id="signUpView" class="auth-view hidden">
+            <div class="view-header">
+              <span class="view-kicker">NEW ACCOUNT</span>
+              <h2>Create your workspace</h2>
+              <p>We’ll send a verification link to your email before your first sign-in.</p>
+            </div>
+
+            <form id="signUpForm" novalidate>
+              <div class="name-grid">
+                <div class="form-group">
+                  <label for="firstName">First Name <span class="req">*</span></label>
+                  <input
+                    type="text"
+                    id="firstName"
+                    name="firstName"
+                    placeholder="First name"
+                    autocomplete="given-name"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="middleName">Middle Name <span class="opt">(opt)</span></label>
+                  <input
+                    type="text"
+                    id="middleName"
+                    name="middleName"
+                    placeholder="Middle name"
+                    autocomplete="additional-name"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="lastName">Last Name <span class="req">*</span></label>
+                  <input
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    placeholder="Last name"
+                    autocomplete="family-name"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="signupEmail">Email <span class="req">*</span></label>
+                <input
+                  type="email"
+                  id="signupEmail"
+                  name="signupEmail"
+                  placeholder="you@example.com"
+                  autocomplete="email"
+                  required
+                />
+              </div>
+
+              <div class="password-grid">
+                <div class="form-group">
+                  <label for="setPassword">Set Password <span class="req">*</span></label>
+                  <input
+                    type="password"
+                    id="setPassword"
+                    name="setPassword"
+                    placeholder="Min. 6 chars"
+                    autocomplete="new-password"
+                    minlength="6"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="confirmPassword">Confirm Password <span class="req">*</span></label>
+                  <input
+                    type="password"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    placeholder="Re-enter password"
+                    autocomplete="new-password"
+                    minlength="6"
+                    required
+                  />
+                </div>
+              </div>
+
+              <button type="submit" id="signUpBtn" class="btn-solid-teal full-width">
+                Create Account
+              </button>
+            </form>
+
+            <p class="switch-prompt">
+              Already have an account?
+              <button type="button" class="text-link strong" data-switch="signInView">
+                Sign in
+              </button>
+            </p>
+          </div>
+
+          <!-- VIEW 3: FORGOT PASSWORD -->
+          <div id="forgotPasswordView" class="auth-view hidden">
+            <div class="view-header">
+              <span class="view-kicker">ACCOUNT RECOVERY</span>
+              <h2>Reset your password</h2>
+              <p>Enter your registered email and we’ll send you a reset link.</p>
+            </div>
+
+            <form id="forgotPasswordForm" novalidate>
+              <div class="form-group">
+                <label for="resetEmail">Registered Email</label>
+                <input
+                  type="email"
+                  id="resetEmail"
+                  name="resetEmail"
+                  placeholder="you@example.com"
+                  autocomplete="email"
+                  required
+                />
+              </div>
+
+              <button type="submit" id="resetBtn" class="btn-solid-teal full-width">
+                Send Reset Link
+              </button>
+            </form>
+
+            <p class="switch-prompt">
+              Remembered your password?
+              <button type="button" class="text-link strong" data-switch="signInView">
+                Back to Sign In
+              </button>
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="js/auth.js"></script>
+</body>
+</html>
